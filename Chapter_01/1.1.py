@@ -42,3 +42,10 @@ assert not is_unique("abcb")
 assert is_unique("")
 assert is_unique(" ")
 print("All tests passed")
+
+# Missed:
+# - Assume a fixed alphabet. If the string is longer than this alphabet (e.g. 256),
+# then we automatically know there must be a duplicated character via the pigeonhole principle,
+# so we can return False right away.
+# - Don't construct the bit vector explicitly, instead use a single int and
+# |= and << bit shifts to check for duplicates.
