@@ -13,6 +13,7 @@ class LinkedList():
     def __init__(self, initial_list=[]):
         self.head = None
         self.tail = None
+        self.length = 0
         for val in initial_list:
             self.insert(val)
 
@@ -27,6 +28,8 @@ class LinkedList():
             last.next = self.tail
             self.tail.prev = last
 
+        self.length += 1
+
     def insert_front(self, val):
         """Insert into the front of the list"""
         if self.head is None:
@@ -37,6 +40,8 @@ class LinkedList():
             self.head = Node(val)
             first.prev = self.head
             self.head.next = first
+
+        self.length += 1
 
     def delete_back(self):
         """Delete the last item in the list"""
@@ -52,6 +57,9 @@ class LinkedList():
             last.next = None
             self.tail = last
 
+        if self.length > 0:
+            self.length -= 1
+
 
     def delete_front(self):
         """Delete the first item in the list"""
@@ -66,6 +74,26 @@ class LinkedList():
             # checked for head == tail previously
             first.prev = None
             self.head = first
+
+        if self.length > 0:
+            self.length -= 1
+
+    def delete_node(self, node):
+        """Delete the specified node"""
+        prv = node.prev
+        nxt = node.next
+
+        if prv is not None:
+            prv.next = nxt
+        else:
+            self.head = node
+        if nxt is not None:
+            nxt.prev = prv
+        else:
+            self.tail = node
+
+        if self.length > 0:
+            self.length -= 1
 
     def traverse_until(self, val, direction="forward"):
         """
@@ -85,7 +113,6 @@ class LinkedList():
                 ptr = ptr.prev
         return None
 
-
     def __repr__(self):
         """Print the list"""
         ptr = self.head
@@ -95,6 +122,8 @@ class LinkedList():
             ptr = ptr.next
         return ''.join(ret)
 
+    def __len__(self):
+        return self.length
 
 def remove_duplicates(ll):
     ptr = ll.head
