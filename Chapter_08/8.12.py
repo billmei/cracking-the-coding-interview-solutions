@@ -16,6 +16,13 @@ BOARD_SIZE = 8
 NO_QUEEN = 0
 UNDER_ATTACK = 1
 
+# Feedback: This is overly complicated by initializing the chessboard.
+# Instead, I should have simply just checked placement only
+# because I don't need to render the chessboard until the very end.
+# To check the diagonals, if the absolute distance between columns of two
+# different squares is equal to the absolute distance between rows, then they're
+# on the same diagonal.
+
 def set_under_attack(row, col, chessboard):
     chessboard[row, col] = UNDER_ATTACK
     chessboard[row] = UNDER_ATTACK
